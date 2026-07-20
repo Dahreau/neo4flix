@@ -1,0 +1,19 @@
+# Global
+*.log
+.vscode
+
+# Node
+node_modules/
+
+# Build
+dist/
+
+# Neo4j runtime data (bind-mounted by docker-compose.yml) - binary, churns
+# constantly, and data/dbms/auth.ini holds a password hash. Never commit a
+# running database, only the schema that creates one (neo4j/init/).
+backend/neo4j/data/
+backend/neo4j/logs/
+
+# Real secrets for docker-compose (NEO4J_PASSWORD, JWT_SECRET) - only the
+# .env.example template (no real values) is tracked. See 00-getting-started.md.
+backend/.env

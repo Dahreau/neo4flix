@@ -1,0 +1,87 @@
+<div class="movie-detail-page">
+  <a routerLink="/" class="back-link">&larr; Retour</a>
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (!movie()) {
+    <p>Film introuvable.</p>
+  } @else {
+    @let m = movie()!;
+
+    <header class="movie-header">
+      @if (m.posterUrl) {
+        <img [src]="m.posterUrl" [alt]="m.title" class="poster" />
+      }
+      <div class="info">
+        <h1>{{ m.title }}</h1>
+        @if (m.originalTitle && m.originalTitle !== m.title) {
+          <p class="original-title">{{ m.originalTitle }}</p>
+        }
+        <p class="meta">
+          @if (m.releaseDate) { <span>{{ m.releaseDate }}</span> }
+          @if (m.durationMinutes) { <span>{{ m.durationMinutes }} min</span> }
+          <span>{{ m.averageRating ?? 0 }} / 5</span>
+        </p>
+        <p class="genres">
+          @for (genre of m.genres; track genre) {
+            <span class="genre-pill">{{ genre }}</span>
+          }
+        </p>
+        @if (m.synopsis) {
+          <p class="synopsis">{{ m.synopsis }}</p>
+        }
+
+        <div class="actions">
+          <button type="button" (click)="share()">Partager le lien</button>
+          @if (shareConfirmed()) {
+            <span class="confirm">Lien copié !</span>
+          }
+
+          @if (auth.isAuthenticated()) {
+            <button type="button" (click)="toggleWatchlist()">
+              {{ inWatchlist() ? 'Retirer de ma watchlist' : 'Ajouter à ma watchlist' }}
+            </button>
+          }
+        </div>
+      </div>
+    </header>
+
+    <section class="rating-section">
+      <h2>Ma note</h2>
+      @if (auth.isAuthenticated()) {
+        <form (ngSubmit)="submitRating()">
+          <label>
+            Note (0.5 à 5)
+            <input type="number" min="0.5" max="5" step="0.5" [(ngModel)]="scoreInput" name="score" required />
+          </label>
+          <label>
+            Commentaire
+            <input type="text" [(ngModel)]="commentInput" name="comment" />
+          </label>
+          <button type="submit">{{ ownRating() ? 'Mettre à jour' : 'Noter' }}</button>
+          @if (ownRating()) {
+            <button type="button" (click)="deleteRating()">Supprimer ma note</button>
+          }
+        </form>
+      } @else {
+        <p><a routerLink="/login">Connecte-toi</a> pour noter ce film.</p>
+      }
+    </section>
+
+    <section class="ratings-list">
+      <h2>Avis ({{ ratings().length }})</h2>
+      @if (ratings().length === 0) {
+        <p>Aucun avis pour l'instant.</p>
+      } @else {
+        <ul>
+          @for (r of ratings(); track r.userId) {
+            <li>
+              <strong>{{ r.username }}</strong> — {{ r.score }} / 5
+              @if (r.comment) { <p>{{ r.comment }}</p> }
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</div>

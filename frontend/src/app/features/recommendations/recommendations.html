@@ -1,0 +1,51 @@
+<div class="recommendations-page">
+  <a routerLink="/" class="back-link">&larr; Retour</a>
+  <h1>Recommandations</h1>
+
+  <form class="filters" (ngSubmit)="load()">
+    <label>
+      Stratégie
+      <select [ngModel]="strategy" name="strategy" (ngModelChange)="strategy = $event; load()">
+        @for (s of strategies; track s.value) {
+          <option [value]="s.value">{{ s.label }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Genre
+      <input type="text" [(ngModel)]="genreFilter" name="genre" placeholder="Action..." />
+    </label>
+    <label>
+      Depuis
+      <input type="date" [(ngModel)]="fromFilter" name="from" />
+    </label>
+    <label>
+      Jusqu'à
+      <input type="date" [(ngModel)]="toFilter" name="to" />
+    </label>
+    <button type="submit">Filtrer</button>
+  </form>
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (recommendations().length === 0) {
+    <p>Aucune recommandation pour l'instant — note quelques films pour en obtenir.</p>
+  } @else {
+    <div class="recommendation-grid">
+      @for (movie of recommendations(); track movie.movieId) {
+        <div class="recommendation-card">
+          <a [routerLink]="['/movies', movie.movieId]">
+            @if (movie.posterUrl) {
+              <img [src]="movie.posterUrl" [alt]="movie.title" />
+            }
+            <h3>{{ movie.title }}</h3>
+          </a>
+          <p>{{ movie.averageRating ?? 0 }} / 5</p>
+          <button type="button" (click)="share(movie.movieId)">
+            {{ sharedMovieId() === movie.movieId ? 'Lien copié !' : 'Partager' }}
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

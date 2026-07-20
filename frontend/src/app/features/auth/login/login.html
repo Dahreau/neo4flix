@@ -1,0 +1,32 @@
+<div class="auth-page">
+  <h1>Connexion</h1>
+
+  @if (!requiresTwoFactor()) {
+    <form (ngSubmit)="submit()">
+      <label>
+        Nom d'utilisateur
+        <input type="text" name="username" [(ngModel)]="username" required autocomplete="username" />
+      </label>
+      <label>
+        Mot de passe
+        <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+      </label>
+      <button type="submit" [disabled]="loading()">Se connecter</button>
+    </form>
+  } @else {
+    <form (ngSubmit)="submitTwoFactor()">
+      <p>Ce compte a la double authentification activée : entre le code de ton application.</p>
+      <label>
+        Code
+        <input type="text" name="totpCode" [(ngModel)]="totpCode" required autocomplete="one-time-code" />
+      </label>
+      <button type="submit" [disabled]="loading()">Valider</button>
+    </form>
+  }
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  <p>Pas encore de compte ? <a routerLink="/register">Inscription</a></p>
+</div>

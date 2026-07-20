@@ -1,0 +1,38 @@
+<div class="home-page">
+  <header>
+    <h1>Neo4flix</h1>
+    <div class="account">
+      @if (auth.isAuthenticated()) {
+        <a routerLink="/watchlist">Ma watchlist</a>
+        <a routerLink="/recommendations">Recommandations</a>
+        <span>{{ auth.currentUser()?.username }}</span>
+        <button (click)="logout()">Déconnexion</button>
+      } @else {
+        <a routerLink="/login">Connexion</a>
+      }
+    </div>
+  </header>
+
+  <form class="search-bar" (ngSubmit)="search()">
+    <input type="text" [(ngModel)]="searchQuery" name="q" placeholder="Rechercher un film..." />
+    <button type="submit">Rechercher</button>
+  </form>
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (movies().length === 0) {
+    <p>Aucun film trouvé.</p>
+  } @else {
+    <div class="movie-grid">
+      @for (movie of movies(); track movie.movieId) {
+        <a class="movie-card" [routerLink]="['/movies', movie.movieId]">
+          @if (movie.posterUrl) {
+            <img [src]="movie.posterUrl" [alt]="movie.title" />
+          }
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.averageRating ?? 0 }} / 5</p>
+        </a>
+      }
+    </div>
+  }
+</div>

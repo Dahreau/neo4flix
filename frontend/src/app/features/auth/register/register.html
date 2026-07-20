@@ -1,0 +1,26 @@
+<div class="auth-page">
+  <h1>Inscription</h1>
+
+  <form (ngSubmit)="submit()">
+    <label>
+      Nom d'utilisateur
+      <input type="text" name="username" [(ngModel)]="username" required autocomplete="username" />
+    </label>
+    <label>
+      Email
+      <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" />
+    </label>
+    <label>
+      Mot de passe
+      <input type="password" name="password" [(ngModel)]="password" required autocomplete="new-password" />
+    </label>
+    <p class="hint">8 caractères minimum, une majuscule, une minuscule, un chiffre.</p>
+    <button type="submit" [disabled]="loading()">Créer mon compte</button>
+  </form>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  <p>Déjà un compte ? <a routerLink="/login">Connexion</a></p>
+</div>

@@ -1,0 +1,24 @@
+<div class="watchlist-page">
+  <a routerLink="/" class="back-link">&larr; Retour</a>
+  <h1>Ma watchlist</h1>
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (items().length === 0) {
+    <p>Ta watchlist est vide. <a routerLink="/">Parcours les films</a> pour en ajouter.</p>
+  } @else {
+    <div class="watchlist-grid">
+      @for (item of items(); track item.movieId) {
+        <div class="watchlist-card">
+          <a [routerLink]="['/movies', item.movieId]">
+            @if (item.posterUrl) {
+              <img [src]="item.posterUrl" [alt]="item.title" />
+            }
+            <h3>{{ item.title }}</h3>
+          </a>
+          <button type="button" (click)="remove(item.movieId)">Retirer</button>
+        </div>
+      }
+    </div>
+  }
+</div>
