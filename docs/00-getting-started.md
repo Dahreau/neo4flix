@@ -1,14 +1,14 @@
 # Getting started
 
 Guide pour lancer le projet en local et vérifier que tout communique. Pour comprendre
-*pourquoi* le projet est architecturé ainsi, voir `01-architecture.md`. Pour les concepts
-Neo4j utilisés partout dans le code, voir `03-neo4j-concepts.md`.
+*pourquoi* le projet est architecturé ainsi, voir [`01-architecture.md`](01-architecture.md). Pour les concepts
+Neo4j utilisés partout dans le code, voir [`03-neo4j-concepts.md`](03-neo4j-concepts.md).
 
 ## Prérequis
 
 - JDK 21
 - Maven (fourni via le wrapper `mvnw` dans chaque microservice, pas besoin d'installer Maven globalement)
-- Node.js (voir `10-frontend.md` pour la version exacte requise par Angular 22)
+- Node.js (voir [`10-frontend.md`](10-frontend.md) pour la version exacte requise par Angular 22)
 - Docker Desktop
 - Postman (l'audit du projet s'en sert explicitement pour tester l'API)
 
@@ -71,10 +71,10 @@ Ports exposés sur l'hôte, identiques que tu sois en Docker ou en lancement man
 (section 2) :
 - `7474` : Neo4j Browser (http://localhost:7474), `7687` : Bolt.
 - `8091`-`8094` : les 4 microservices.
-- `4201` : le frontend (servi par nginx en conteneur, voir `10-frontend.md`).
+- `4201` : le frontend (servi par nginx en conteneur, voir [`10-frontend.md`](10-frontend.md)).
 
 Identifiants Neo4j : `neo4j` / la valeur de `NEO4J_PASSWORD` dans ton `.env`
-(`neo4flix_dev` par défaut). Voir `04-security.md` pour le pourquoi de ce
+(`neo4flix_dev` par défaut). Voir [`04-security.md`](04-security.md) pour le pourquoi de ce
 `.env` plutôt qu'une valeur en dur dans `docker-compose.yml`.
 
 ### Appliquer le schéma (contraintes + index)
@@ -115,7 +115,7 @@ Chaque service se connecte à `bolt://localhost:7687` par défaut hors Docker (v
 variable d'env `NEO4J_URI` si elle existe, sinon retombe sur `localhost`, ce qui
 permet au même jar de tourner en local ou en conteneur sans modification).
 
-Frontend : `cd frontend && npx ng serve` (voir `10-frontend.md`).
+Frontend : `cd frontend && npx ng serve` (voir [`10-frontend.md`](10-frontend.md)).
 
 Si un service refuse de démarrer avec `Port XXXX was already in use`, un autre
 processus occupe déjà ce port sur ta machine (vérifie avec
@@ -134,8 +134,8 @@ cd backend
 
 Nécessite movie-service démarré (8091, Docker ou local). Le script crée et
 promeut son propre compte admin jetable pour pouvoir créer les films (voir
-`04-security.md` — créer un film est une action admin depuis que movie-service
-est sécurisé). Détail dans `09-testing.md`.
+[`04-security.md`](04-security.md) — créer un film est une action admin depuis que movie-service
+est sécurisé). Détail dans [`09-testing.md`](09-testing.md).
 
 ## 4. Vérifier que tout fonctionne
 
@@ -159,7 +159,7 @@ tentative d'injection...), il y a aussi :
 .\scripts\security-test.ps1
 ```
 
-Détail complet des deux scripts dans `09-testing.md`.
+Détail complet des deux scripts dans [`09-testing.md`](09-testing.md).
 
 **Manuel — dans Postman**, dans cet ordre (utile pour comprendre chaque étape
 ou déboguer un cas précis) :
@@ -171,7 +171,7 @@ ou déboguer un cas précis) :
    Mot de passe : 8 caractères min, une majuscule, une minuscule, un chiffre.
    Récupère le `token` de la réponse (2FA désactivée par défaut, donc
    `/api/auth/login` renverrait `{"requiresTwoFactor": false, "auth": {"token": ...}}` —
-   voir `04-security.md` pour activer la 2FA et le flux à deux étapes).
+   voir [`04-security.md`](04-security.md) pour activer la 2FA et le flux à deux étapes).
 
 2. **Passer ce compte admin** (nécessaire pour l'étape 4 — créer un film est
    une action admin) — depuis un terminal, pas Postman :
@@ -209,11 +209,11 @@ sécurité JWT partagée, y compris le rôle admin) fonctionne de bout en bout.
 
 ## Sommaire de la doc
 
-- `01-architecture.md` — vue d'ensemble microservices, qui possède quoi, pourquoi une seule base Neo4j partagée.
-- `02-data-model.md` — nœuds, relations, contraintes.
-- `03-neo4j-concepts.md` — bases graphe/Cypher, Spring Data Neo4j (OGM) vs Neo4jClient, et pourquoi ce choix compte.
-- `04-security.md` — flux JWT, secret partagé, ce qui reste à faire.
-- `05-movie-service.md`, `06-user-service.md`, `07-rating-service.md` — détail par service (endpoints, décisions).
-- `08-recommendation-service.md` — les 3 stratégies de recommandation, Cypher et GDS expliqués.
-- `09-testing.md` — script de smoke test local, ce qu'il couvre et ce qu'il ne remplace pas.
-- `10-frontend.md` — architecture Angular, structure des dossiers, auth côté client.
+- [`01-architecture.md`](01-architecture.md) — vue d'ensemble microservices, qui possède quoi, pourquoi une seule base Neo4j partagée.
+- [`02-data-model.md`](02-data-model.md) — nœuds, relations, contraintes.
+- [`03-neo4j-concepts.md`](03-neo4j-concepts.md) — bases graphe/Cypher, Spring Data Neo4j (OGM) vs Neo4jClient, et pourquoi ce choix compte.
+- [`04-security.md`](04-security.md) — flux JWT, secret partagé, ce qui reste à faire.
+- [`05-movie-service.md`](05-movie-service.md), [`06-user-service.md`](06-user-service.md), [`07-rating-service.md`](07-rating-service.md) — détail par service (endpoints, décisions).
+- [`08-recommendation-service.md`](08-recommendation-service.md) — les 3 stratégies de recommandation, Cypher et GDS expliqués.
+- [`09-testing.md`](09-testing.md) — script de smoke test local, ce qu'il couvre et ce qu'il ne remplace pas.
+- [`10-frontend.md`](10-frontend.md) — architecture Angular, structure des dossiers, auth côté client.

@@ -13,7 +13,7 @@ une commande.
    c'est l'équivalent du premier stage d'un pipeline Jenkins (est-ce que ça
    compile), en local et instantané.
 2. **Smoke test fonctionnel** : rejoue le scénario complet de
-   `00-getting-started.md` (créer un compte, le passer admin via
+   [`00-getting-started.md`](00-getting-started.md) (créer un compte, le passer admin via
    `promote-admin.ps1`, se reconnecter pour obtenir un token à jour, créer un
    film, le noter, vérifier que la moyenne s'est recalculée, watchlist, les 3
    endpoints de recommandation), avec une assertion à chaque étape. Si une
@@ -43,7 +43,7 @@ cd backend
 
 Prérequis pour le smoke test complet : Neo4j lancé (`docker compose up -d`) et
 les 4 microservices démarrés chacun dans leur terminal (`mvn spring-boot:run`),
-voir `00-getting-started.md`.
+voir [`00-getting-started.md`](00-getting-started.md).
 
 Le script crée un utilisateur temporaire (`smoketest_<random>`), le promeut
 admin, et un film de test, note ce film, vérifie tout, puis nettoie (supprime
@@ -88,7 +88,7 @@ Ce qu'il vérifie :
 - **Texte façon XSS dans un commentaire de note** : confirmé stocké tel quel
   côté backend (normal, ce n'est pas son rôle de filtrer du HTML) — c'est
   Angular qui neutralise ça à l'affichage via l'interpolation `{{ }}`, voir
-  `10-frontend.md`.
+  [`10-frontend.md`](10-frontend.md).
 - **Vérification de concurrence légère** : 20 requêtes GET en parallèle sur
   `/api/movies`, juste pour confirmer qu'aucune ne plante. **Ce n'est pas un
   vrai test de charge** (pas de mesure de débit/latence, pas d'outil dédié
@@ -98,7 +98,7 @@ Ce qu'il vérifie :
 spéciaux Lucene (parenthèses, tiret, guillemets...) faisait planter
 `movie-service` avec une 500, parce que le texte de recherche est passé
 directement au parseur de requêtes de l'index plein texte. Corrigé
-(`MovieService.escapeLuceneQuery`) — détail dans `05-movie-service.md`.
+(`MovieService.escapeLuceneQuery`) — détail dans [`05-movie-service.md`](05-movie-service.md).
 
 Contrairement à `smoke-test.ps1`, ce script ne s'arrête pas à la première
 erreur : il fait tourner tous les tests et affiche un résumé à la fin (pass
@@ -114,7 +114,7 @@ cd backend
 `backend/scripts/promote-admin.ps1 -Username <username>` passe un compte déjà
 inscrit en `ROLE_ADMIN` (+ garde `ROLE_USER`), en modifiant directement le
 nœud `User` via `cypher-shell` — il n'y a pas d'API pour ça (voir
-`04-security.md` pour le pourquoi). `seed-movies.ps1` et `smoke-test.ps1`
+[`04-security.md`](04-security.md) pour le pourquoi). `seed-movies.ps1` et `smoke-test.ps1`
 l'utilisent tous les deux en interne pour pouvoir créer des films. Rappel
 important : un token déjà émis ne se met pas à jour tout seul, il faut se
 reconnecter après la promotion pour obtenir un JWT qui porte `ROLE_ADMIN`.

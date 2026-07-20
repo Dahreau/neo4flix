@@ -50,12 +50,12 @@ pour deux raisons concrètes à ce projet :
    et le recommendation-service à interroger les deux pour chaque calcul. Ça
    ajoute de la latence et de la complexité sans bénéfice réel ici.
 2. **L'audit du projet demande explicitement un graphe unifié** représentant
-   movies/users/ratings avec leurs relations (voir `docs/neo4flix-audit.md`,
+   movies/users/ratings avec leurs relations (voir [`docs/neo4flix-audit.md`](neo4flix-audit.md),
    section "Data and Design").
 
 Le compromis : on perd l'isolation stricte des bases, donc on **doit** se
 discipliner sur qui a le droit d'écrire quoi. C'est la règle ci-dessous, et
-`03-neo4j-concepts.md` explique comment on l'applique techniquement (OGM vs
+[`03-neo4j-concepts.md`](03-neo4j-concepts.md) explique comment on l'applique techniquement (OGM vs
 Neo4jClient).
 
 ## Qui possède quoi (bounded context)
@@ -73,7 +73,7 @@ Neo4j (OGM, `@Node`/`@Relationship`) *que* les nœuds qu'il possède. Pour toute
 opération qui touche un nœud possédé par un autre service (ex : rating-service
 qui doit vérifier qu'un `Movie` existe, ou lier un `User` à un `Movie` via
 `RATED`), on passe par `Neo4jClient` avec du Cypher explicite plutôt que par une
-relation OGM mappée sur l'agrégat. Voir `03-neo4j-concepts.md` pour le pourquoi
+relation OGM mappée sur l'agrégat. Voir [`03-neo4j-concepts.md`](03-neo4j-concepts.md) pour le pourquoi
 technique précis (risque de `save()` en cascade qui écraserait des données
 d'un autre service).
 
@@ -104,7 +104,7 @@ routing Angular côté client fonctionne sur un refresh/lien direct).
 `backend/docker-compose.yml` orchestre tout : Neo4j démarre en premier (avec un
 `healthcheck` cypher-shell), les 4 microservices attendent qu'il soit prêt, puis
 le frontend. Un seul `docker compose up -d --build` depuis `backend/` lance
-l'application complète — voir `00-getting-started.md`.
+l'application complète — voir [`00-getting-started.md`](00-getting-started.md).
 
 Les microservices lisent `NEO4J_URI` et `JWT_SECRET` depuis l'environnement (avec
 un défaut `localhost`/valeur de dev codée en dur si la variable n'est pas définie),
@@ -129,7 +129,7 @@ il serait rejeté avant même d'atteindre le contrôleur).
 Un seul service (user-service) émet des JWT. Les 3 autres (movie-service,
 rating-service, recommendation-service) le valident avec le même secret HMAC
 partagé, sans jamais appeler user-service pour vérifier un token. Détail
-complet dans `04-security.md`.
+complet dans [`04-security.md`](04-security.md).
 
 **movie-service est le seul des 4 avec des routes publiques** : lire le
 catalogue (`GET /api/movies`, `/api/movies/{id}`, `/api/movies/search`,
@@ -137,5 +137,5 @@ catalogue (`GET /api/movies`, `/api/movies/{id}`, `/api/movies/search`,
 films n'a pas besoin d'authentification). Créer/modifier/supprimer un film
 (`POST`/`PUT`/`DELETE /api/movies`) exige en revanche un JWT portant
 `ROLE_ADMIN` dans ses claims — voir `SecurityConfig.securityFilterChain()`
-dans movie-service et `04-security.md` pour comment un compte devient admin
+dans movie-service et [`04-security.md`](04-security.md) pour comment un compte devient admin
 (pas de self-service : l'inscription n'assigne jamais que `ROLE_USER`).

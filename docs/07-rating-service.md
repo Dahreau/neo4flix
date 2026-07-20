@@ -7,7 +7,7 @@ Port **8093**. Seul service autorisé à écrire la relation `RATED`
 ## Modèle
 
 Aucune entité OGM (`@Node`) pour `User` ou `Movie` dans ce service — tout
-passe par `Neo4jClient` (`RatingRepository`), voir `03-neo4j-concepts.md`
+passe par `Neo4jClient` (`RatingRepository`), voir [`03-neo4j-concepts.md`](03-neo4j-concepts.md)
 section 4 pour le pourquoi.
 
 Propriétés de la relation `RATED` : `score` (0.5 à 5.0), `comment`, `ratedAt`.

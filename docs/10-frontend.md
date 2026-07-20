@@ -89,7 +89,7 @@ racine.
 
 Port de dev par défaut fixé à **4201** dans `angular.json`
 (`architect.serve.options.port`) — 4200 est déjà pris par un autre projet sur les
-machines de l'équipe, voir `01-architecture.md`.
+machines de l'équipe, voir [`01-architecture.md`](01-architecture.md).
 
 ### Pourquoi la notation est sur la page détail film, pas sur une page séparée
 
@@ -108,7 +108,7 @@ sont conditionnés à `auth.isAuthenticated()` dans le template.
 ### Pourquoi le partage est un lien copié dans le presse-papiers
 
 L'audit demande "users can share movie recommendations with friends", mais le
-modèle de données n'a aucune notion d'amis ou de messagerie (`02-data-model.md`
+modèle de données n'a aucune notion d'amis ou de messagerie ([`02-data-model.md`](02-data-model.md)
 n'a que `User`/`Movie`/`RATED`/`WANTS_TO_WATCH`). Construire un vrai système
 social serait hors scope. La solution retenue (`core/share.util.ts`) génère un
 lien `http://localhost:4201/movies/{movieId}` et le copie dans le presse-papiers

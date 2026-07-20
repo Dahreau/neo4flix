@@ -29,7 +29,7 @@ genres. **Jamais construit** : le schema.cypher garde encore la contrainte
 `person_id_unique` (inoffensive sur un label qui n'existe pas en pratique, mais
 à nettoyer si on veut être rigoureux), et aucun code Java ne crée de nœud
 `Person`. L'audit ne demande que movies/users/ratings (voir
-`docs/neo4flix-audit.md`, section "Data and Design") — Person aurait été un
+[`docs/neo4flix-audit.md`](neo4flix-audit.md), section "Data and Design") — Person aurait été un
 bonus, pas un requis, donc scope-cut délibérément pour tenir les délais plutôt
 que laissé en plan par oubli.
 
@@ -62,7 +62,7 @@ Le partage de recommandations entre amis n'est pas modélisé comme relation
 persistante dans le graphe (pas de `FRIENDS_WITH`, aucun service ne connaît la
 notion d'amis) : c'est un simple lien profond vers `/movies/{movieId}` généré
 et copié dans le presse-papiers **côté frontend uniquement**
-(`core/share.util.ts`), aucun backend impliqué. Voir `10-frontend.md` pour le
+(`core/share.util.ts`), aucun backend impliqué. Voir [`10-frontend.md`](10-frontend.md) pour le
 détail et le raisonnement complet.
 
 ## Comment appliquer ce schéma
@@ -86,5 +86,5 @@ SHOW INDEXES;
 
 Ce schéma est traduit en entités Neo4j OGM (`@Node`, `@Relationship`) côté
 movie-service : `Movie`, `Genre`. Les 4 microservices, le frontend et le
-schéma sont tous implémentés — voir `00-getting-started.md` pour lancer
+schéma sont tous implémentés — voir [`00-getting-started.md`](00-getting-started.md) pour lancer
 l'ensemble.

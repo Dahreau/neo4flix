@@ -3,7 +3,7 @@
 Port **8091**. Possède les nœuds `Movie`, `Genre` et la relation `IN_GENRE`.
 Un nœud `Person` (acteurs/réalisateurs) avait été envisagé mais jamais
 implémenté — scope-cut volontaire, pas requis par l'audit, voir
-`02-data-model.md`.
+[`02-data-model.md`](02-data-model.md).
 
 ## Modèle
 
@@ -28,7 +28,7 @@ implémenté — scope-cut volontaire, pas requis par l'audit, voir
 Les écritures exigent un JWT dont les claims `roles` contiennent `ROLE_ADMIN`
 (`SecurityConfig`, `hasRole("ADMIN")` — Spring Security cherche l'autorité
 `ROLE_ADMIN`, le préfixe est ajouté automatiquement par `hasRole`). Aucun
-compte n'est admin par défaut ; voir `04-security.md` pour
+compte n'est admin par défaut ; voir [`04-security.md`](04-security.md) pour
 `scripts/promote-admin.ps1`.
 
 ## Décisions techniques

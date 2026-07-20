@@ -8,7 +8,7 @@ Port **8092**. Possède le nœud `User` et la relation `WANTS_TO_WATCH`
 - `User` (`domain/User.java`) : `userId` (UUID généré), `username` (unique),
   `email` (unique), `passwordHash` (BCrypt), `roles`, `createdAt`.
   **Pas de relation `@Relationship` vers `Movie`** — volontaire, voir
-  `03-neo4j-concepts.md` section 4 (risque de `save()` en cascade qui
+  [`03-neo4j-concepts.md`](03-neo4j-concepts.md) section 4 (risque de `save()` en cascade qui
   écraserait des propriétés de `Movie`, propriété de movie-service).
 
 ## Endpoints
@@ -26,7 +26,7 @@ Port **8092**. Possède le nœud `User` et la relation `WANTS_TO_WATCH`
 | POST | `/api/users/me/watchlist/{movieId}` | — | oui | Ajoute un film à la watchlist |
 | DELETE | `/api/users/me/watchlist/{movieId}` | — | oui | Retire un film de la watchlist |
 
-Détail du flux 2FA et des choix de librairies : `04-security.md`.
+Détail du flux 2FA et des choix de librairies : [`04-security.md`](04-security.md).
 
 ## Décisions techniques
 
@@ -41,7 +41,7 @@ Détail du flux 2FA et des choix de librairies : `04-security.md`.
   fluent `Jwts.builder()...signWith(key)`), `JwtAuthenticationFilter`
   l'intercepte sur chaque requête, `SecurityConfig` définit ce qui est public
   (`/api/auth/**`) vs protégé (tout le reste). Détail du flux complet dans
-  `04-security.md`.
+  [`04-security.md`](04-security.md).
 - **Message d'erreur de login volontairement générique**
   (`InvalidCredentialsException` : "Identifiants invalides", jamais "mauvais
   mot de passe" ou "utilisateur inconnu") pour ne pas révéler à un attaquant

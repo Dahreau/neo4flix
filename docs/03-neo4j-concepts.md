@@ -37,7 +37,7 @@ Concrètement dans neo4flix :
 L'intérêt concret : "quels films ont été notés 5/5 par des gens qui ont aussi
 noté 5/5 le film que je regarde" est une jointure à 3-4 niveaux en SQL (lente,
 verbeuse), mais une traversée de 2-3 relations en Cypher (rapide, lisible).
-C'est tout l'enjeu du recommendation-service (voir `08-recommendation-service.md`).
+C'est tout l'enjeu du recommendation-service (voir [`08-recommendation-service.md`](08-recommendation-service.md)).
 
 ## 2. Cypher, le langage de requête
 
@@ -132,5 +132,5 @@ Activé dans `docker-compose.yml` (`NEO4J_PLUGINS=["apoc", "graph-data-science"]
 C'est une librairie d'algorithmes de graphe (similarité, PageRank, détection de
 communautés...) exécutés côté serveur Neo4j plutôt qu'en Cypher pur — utile
 pour du filtrage collaboratif à l'échelle. Détail d'usage dans
-`08-recommendation-service.md`, c'est le morceau du projet où cette notion
+[`08-recommendation-service.md`](08-recommendation-service.md), c'est le morceau du projet où cette notion
 compte vraiment.
